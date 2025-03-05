@@ -1,10 +1,6 @@
 #include <iostream>
 #include <string>
 
-int main()
-{
-   std::cout<<"hello world"<<std::endl;
-}
 
 struct socket
 {
@@ -12,8 +8,15 @@ struct socket
    int green=5;
    int grey=5;
    int blue=5;
-}
+};
 enum player
 {
     
+};
+
+
+int main()
+{
+   std::cout<<"hello world"<<std::endl;
+   random();
 }
