@@ -1,3 +1,5 @@
+#include <string>
+
 class position:
 {
    public :
@@ -13,8 +15,8 @@ class shipposition:
    public :
    int cost;
    int bennefit;
-   position(){}
-   ~position(){}
+   shipposition(){}
+   ~shipposition(){}
 
 };
 class player:
@@ -22,4 +24,4 @@ class player:
    public :
    int ID=0;
    std::string name="";
-}
+};

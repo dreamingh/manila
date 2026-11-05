@@ -1,7 +1,7 @@
 
 #include <cstdlib>  // 包含rand()和srand()
 #include <ctime>    // 包含time()
-
+#include <iostream>
 int random(){
     // 设置随机数种子
     srand(static_cast<unsigned int>(time(0)));
