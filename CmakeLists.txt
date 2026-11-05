@@ -1,15 +1,37 @@
-#cmake_minium_required(version 2.8)
+cmake_minimum_required(VERSION 3.16)   # Qt6 要求 3.16+，原 2.8 太老且已弃用
 project(tcp LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOMOC ON)                   # Qt 有 Q_OBJECT 必须开
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 set(CMAKE_BUILD_TYPE "Debug")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
 set(RootPath "${CMAKE_CURRENT_SOURCE_DIR}/.")
+
+# 头文件（用于 IDE 显示）
 set(HEADER_FILES
-    include/random.h
-    include/stepposition.h
+    ${RootPath}/include/random.h
+    ${RootPath}/include/stepposition.h
+    ${RootPath}/checkerboard.h    # 如果拆出新文件，就加这里
 )
-list(APPEND SourceFiles ${RootPath}/index.cpp )
+
+# 源文件
+set(SourceFiles
+    ${RootPath}/index.cpp
+    ${RootPath}/checkerboard.cpp          # 如果拆出新文件，就加这里
+)
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
 include_directories(${RootPath}/include)
-add_executable(tcp.exe ${HEADER_FILES} ${SourceFiles})
+include_directories(${RootPath})
+add_executable(tcp ${HEADER_FILES} ${SourceFiles})
+
+target_link_libraries(tcp PRIVATE Qt6::Widgets)

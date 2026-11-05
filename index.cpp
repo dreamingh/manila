@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include "random.h"
-
+#include "include/random.h"
+#include <QApplication>
+#include "checkerboard.h"
 struct socket
 {
    int black=5;
@@ -15,8 +16,13 @@ enum player
 };
 
 
-int main()
+int main(int argc, char *argv[])
 {
+
    std::cout<<"hello world"<<std::endl;
-   random();
+   myrandom();
+   QApplication app(argc, argv);
+   CheckerBoard board;
+   board.show();
+   return app.exec();
 }
