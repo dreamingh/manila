@@ -68,10 +68,10 @@ void CheckerBoard::initPieces()
 
     // 四个玩家初始像素位置（靠近四个角，向内偏移一点）
     QPoint initPos[4] = {
-        QPoint(440,  440),    // 左上
-        QPoint(440, 470),    // 右上
-        QPoint(440, 500),   // 右下
-        QPoint(440, 530)    // 左下
+        QPoint(440, 440),
+        QPoint(440, 470),
+        QPoint(440, 500),
+        QPoint(440, 530)
     };
 
     for (int p = 0; p < 4; p++)
@@ -256,9 +256,9 @@ void CheckerBoard::mousePressEvent(QMouseEvent *event)
     }
     // 2) 没点中棋子 → 判断是否点中某个模块区域
     int module = hitModule(event->pos());
-    if (module >= 0) {
+    if (module > 0) {
         // 切换禁用状态（再点一次可恢复，按你的需求决定是否允许恢复）
-        m_moduleDisabled[module] = true;
+        m_moduleDisabled[module] = !m_moduleDisabled[module] ;
         update();
         return;
     }
@@ -269,17 +269,17 @@ void CheckerBoard::mousePressEvent(QMouseEvent *event)
 }
 QRect CheckerBoard::moduleRect(int module){
     switch (module) {
-    case 0: return QRect(80,  80,  240, 100);   // 左上
-    case 1: return QRect(360, 80,  240, 100);   // 右上
-    case 2: return QRect(80,  480, 240, 100);   // 左下
-    case 3: return QRect(340, 480, 260, 100);   // 右下
+    case 1: return QRect(80,  480,  40, 150);   // 左上
+    case 2: return QRect(160, 480,  40, 150);   // 右上
+    case 3: return QRect(240, 480, 40, 150);   // 左下
+    case 4: return QRect(320, 480, 40, 150);   // 右下
     }
     return QRect();
 }
 
 int CheckerBoard::hitModule(const QPoint &p)
 {
-    for (int m = 0; m < 4; m++) {
+    for (int m = 1; m < 5; m++) {
         if (moduleRect(m).contains(p))
             return m;
     }
@@ -314,7 +314,12 @@ void CheckerBoard::mouseReleaseEvent(QMouseEvent *event)
         // ★ 关键：模块被禁用 → 不能放入
         if (m_moduleDisabled[s.module]) {
             // 弹回初始位置
-            QPoint initPos[4] = {QPoint(40,40), QPoint(600,40), QPoint(600,600), QPoint(40,600)};
+            QPoint initPos[4] = {
+                QPoint(440, 440),
+                QPoint(440, 470),
+                QPoint(440, 500),
+                QPoint(440, 530)
+            };
             pc.pos    = initPos[pc.player];
             pc.placed = false;
             pc.dragging = false;
@@ -340,12 +345,22 @@ void CheckerBoard::mouseReleaseEvent(QMouseEvent *event)
             pc.pos    = target;
             pc.placed = true;
         } else {
-            QPoint initPos[4] = {QPoint(40,40), QPoint(600,40), QPoint(600,600), QPoint(40,600)};
+            QPoint initPos[4] = {
+                QPoint(440, 440),
+                QPoint(440, 470),
+                QPoint(440, 500),
+                QPoint(440, 530)
+            };
             pc.pos    = initPos[pc.player];
             pc.placed = false;
         }
     } else {
-        QPoint initPos[4] = {QPoint(40,40), QPoint(600,40), QPoint(600,600), QPoint(40,600)};
+        QPoint initPos[4] = {
+            QPoint(440, 440),
+            QPoint(440, 470),
+            QPoint(440, 500),
+            QPoint(440, 530)
+        };
         pc.pos    = initPos[pc.player];
         pc.placed = false;
     }
