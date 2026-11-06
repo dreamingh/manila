@@ -6,7 +6,7 @@
 #include <QVector>
 #include <QMouseEvent>
 #include <QPaintEvent>
-
+#pragma once
 struct Piece {
     QPoint pos;      // 像素位置
     QPointF gridPos; // 网格坐标（用于判断落在哪个格子）
@@ -20,7 +20,7 @@ struct Slot {
 };
 
 
-bool m_moduleDisabled[4] = {false, false, false, false}; // 模块是否被禁用
+
 class CheckerBoard : public QWidget
 {
     Q_OBJECT
@@ -46,7 +46,7 @@ private:
 
     QVector<Slot>   m_slots;      // 24 个 slot 的【像素坐标】
     QVector<Piece>    m_pieces;
-
+    bool m_moduleDisabled[5] = {false,false, false, false, false}; // 模块是否被禁用
     int    m_draggingIndex = -1;
     QPoint m_dragOffset;
 };

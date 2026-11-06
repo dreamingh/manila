@@ -47,7 +47,7 @@ void CheckerBoard::initSlots()
     m_slots.append({QPoint(100,200),0});               // 海盗2
     m_slots.append({QPoint(520, 330),0});        // 保险
     m_slots.append({QPoint(50, 300),0});        // 领航员1
-    m_slots.append({QPoint(50, 350),0})      // 领航员2
+    m_slots.append({QPoint(50, 350),0});      // 领航员2
     m_slots.append({QPoint(100, 500),1});      // 白船1
     m_slots.append({QPoint(100, 530),1});        // 白船2
     m_slots.append({QPoint(100, 560),1});        // 白船3
@@ -101,8 +101,8 @@ int CheckerBoard::hitSlot(const QPoint &pixel, double radius) const
     int best = -1;
     double bestDist = radius;
     for (int i = 0; i < m_slots.size(); i++) {
-        double d = std::hypot(m_slots[i].x() - pixel.x(),
-                              m_slots[i].y() - pixel.y());
+        double d = std::hypot(m_slots[i].pos.x() - pixel.x(),
+                              m_slots[i].pos.y() - pixel.y());
         if (d < bestDist) { bestDist = d; best = i; }
     }
     return best;
@@ -119,16 +119,16 @@ void CheckerBoard::paintEvent(QPaintEvent *)
     painter.setPen(QPen(QColor(150, 140, 120), 2));
 
     // 2) 画所有 slot 圆点
-    for (const QPoint &sp : m_slots) {
+    for (const Slot &sp : m_slots) {
         bool occupied = false;
         for (const Piece &pc : m_pieces) {
-            if (pc.placed && std::hypot(pc.pos.x()-sp.x(), pc.pos.y()-sp.y()) < 4) {
+            if (pc.placed && std::hypot(pc.pos.x()-sp.pos.x(), pc.pos.y()-sp.pos.y()) < 4) {
                 occupied = true; break;
             }
         }
         painter.setBrush(occupied ? QColor(200,200,200) : Qt::white);
         painter.setPen(QPen(QColor(120,110,100), 1.5));
-        painter.drawEllipse(sp, SLOT_RADIUS, SLOT_RADIUS);
+        painter.drawEllipse(sp.pos, SLOT_RADIUS, SLOT_RADIUS);
     }
 
     // 3) 画非拖动棋子
@@ -164,7 +164,7 @@ void CheckerBoard::paintEvent(QPaintEvent *)
         if (slot >= 0) {
             painter.setBrush(Qt::NoBrush);
             painter.setPen(QPen(QColor(50,50,220), 2.5));
-            painter.drawEllipse(m_slots[slot], PIECE_RADIUS+4, PIECE_RADIUS+4);
+            painter.drawEllipse(m_slots[slot].pos, PIECE_RADIUS+4, PIECE_RADIUS+4);
         }
     }
 }
@@ -206,7 +206,7 @@ void CheckerBoard::mouseReleaseEvent(QMouseEvent *event)
     int slot = hitSlot(pc.pos, 40);
 
     if (slot >= 0) {
-        QPoint target = m_slots[slot];
+        QPoint target = m_slots[slot].pos;
         bool occupied = false;
         for (int j = 0; j < m_pieces.size(); j++) {
             if (j == m_draggingIndex) continue;
