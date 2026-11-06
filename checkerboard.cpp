@@ -37,30 +37,30 @@ void CheckerBoard::initSlots()
 
 
     // ---- 外圈 12 点 ----
-    m_slots << QPoint(50, 30);          // 港口1
-    m_slots << QPoint(50, 80);          // 港口2
-    m_slots << QPoint(50, 130);          // 港口3
-    m_slots << QPoint(500, 30);               // 修船厂1
-    m_slots << QPoint(500, 80);          // 修船厂2
-    m_slots << QPoint(500, 130);          // 修船厂3
-    m_slots << QPoint(50,200);          // 海盗1
-    m_slots << QPoint(100,200);               // 海盗2
-    m_slots << QPoint(520, 330);        // 保险
-    m_slots << QPoint(50, 300);        // 领航员1
-    m_slots << QPoint(50, 350);      // 领航员2
-    m_slots << QPoint(100, 500);      // 白船1
-    m_slots << QPoint(100, 530);        // 白船2
-    m_slots << QPoint(100, 560);        // 白船3
-    m_slots << QPoint(180, 500);      // 蓝船1
-    m_slots << QPoint(180, 530);      // 蓝船2
-    m_slots << QPoint(180, 560);      // 蓝船3
-    m_slots << QPoint(260, 500);      // 黑船1
-    m_slots << QPoint(260, 530);      // 黑船2
-    m_slots << QPoint(260, 560);      // 黑船3
-    m_slots << QPoint(340, 500);      // 绿船1
-    m_slots << QPoint(340, 530);      // 绿船2
-    m_slots << QPoint(340, 560);      // 绿船3
-    m_slots << QPoint(340, 590);      // 绿船4
+    m_slots.append({QPoint(50, 30),0});          // 港口1
+    m_slots.append({QPoint(50, 80),0});          // 港口2
+    m_slots.append({QPoint(50, 130),0});          // 港口3
+    m_slots.append({QPoint(500, 30),0});               // 修船厂1
+    m_slots.append({QPoint(500, 80),0});          // 修船厂2
+    m_slots.append({QPoint(500, 130),0});          // 修船厂3
+    m_slots.append({QPoint(50,200),0});          // 海盗1
+    m_slots.append({QPoint(100,200),0});               // 海盗2
+    m_slots.append({QPoint(520, 330),0});        // 保险
+    m_slots.append({QPoint(50, 300),0});        // 领航员1
+    m_slots.append({QPoint(50, 350),0})      // 领航员2
+    m_slots.append({QPoint(100, 500),1});      // 白船1
+    m_slots.append({QPoint(100, 530),1});        // 白船2
+    m_slots.append({QPoint(100, 560),1});        // 白船3
+    m_slots.append({QPoint(180, 500),2});      // 蓝船1
+    m_slots.append({QPoint(180, 530),2});      // 蓝船2
+    m_slots.append({QPoint(180, 560),2});      // 蓝船3
+    m_slots.append({QPoint(260, 500),3});      // 黑船1
+    m_slots.append({QPoint(260, 530),3});      // 黑船2
+    m_slots.append({QPoint(260, 560),3});      // 黑船3
+    m_slots.append({QPoint(340, 500),4});      // 绿船1
+    m_slots.append({QPoint(340, 530),4});      // 绿船2
+    m_slots.append({QPoint(340, 560),4});      // 绿船3
+    m_slots.append({QPoint(340, 590),4});      // 绿船4
 }
 
 void CheckerBoard::initPieces()

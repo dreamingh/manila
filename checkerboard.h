@@ -14,7 +14,13 @@ struct Piece {
     bool placed;     // 是否已放置到格子上
     bool dragging;   // 是否正在拖动
 };
+struct Slot {
+    QPoint pos;      // 像素坐标
+    int    module;   // 所属模块 0~3
+};
 
+
+bool m_moduleDisabled[4] = {false, false, false, false}; // 模块是否被禁用
 class CheckerBoard : public QWidget
 {
     Q_OBJECT
@@ -38,7 +44,7 @@ private:
     static constexpr int PIECE_RADIUS = 13;
     static constexpr int SLOT_RADIUS  = 6;   // 格子圆点半径
 
-    QVector<QPoint>   m_slots;      // 24 个 slot 的【像素坐标】
+    QVector<Slot>   m_slots;      // 24 个 slot 的【像素坐标】
     QVector<Piece>    m_pieces;
 
     int    m_draggingIndex = -1;
