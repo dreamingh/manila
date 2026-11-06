@@ -27,7 +27,8 @@ class CheckerBoard : public QWidget
 
 public:
     explicit CheckerBoard(QWidget *parent = nullptr);
-
+    QRect moduleRect(int module);
+    int hitModule(const QPoint &p);
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
